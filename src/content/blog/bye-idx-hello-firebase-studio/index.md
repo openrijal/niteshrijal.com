@@ -1,7 +1,8 @@
 ---
 title: "Bye IDX, Hello Firebase Studio"
-description: "Google Project IDX has been rebranded as Google Firebase Studio. This post explores what this change means for developers and the future of web and mobile development within the Firebase ecosystem."
+summary: "Google Project IDX has been rebranded as Google Firebase Studio. This post explores what this change means for developers and the future of web and mobile development within the Firebase ecosystem."
 date: "Apr 23 2025"
+tags: ["firebase", "studio", "google", "idx", "genai", "ide", "cloud"]
 draft: false
 ---
 
