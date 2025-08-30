@@ -1,7 +1,7 @@
 ---
 title: "Parents in Tech"
 summary: "A global community for parents in tech to build open-source projects for children."
-date: "Aug 05 2023"
+date: "Aug 30 2025"
 tags:
 - community
 - opensource
