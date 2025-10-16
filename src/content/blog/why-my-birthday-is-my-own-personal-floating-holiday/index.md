@@ -1,7 +1,7 @@
 ---
 title: "Why My Birthday Is My Own Personal Floating Holiday"
 summary: "I share the fun and confusing story of why my official birthday on my passport is different from the day I actually celebrate. It's a personal tale about growing up with Nepal's traditional lunar calendar and how my real birthday is a 'floating holiday' tied to a full moon and a massive festival!"
-date: "2025-10-15"
+date: "Oct 15 2025"
 draft: false
 tags:
 - culture
