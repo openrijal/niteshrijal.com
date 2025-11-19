@@ -127,41 +127,41 @@ This is a markdown file, that provides a summary of what the Agent did and how d
 
 This interface allows you to leave inline comments, this part is new and exciting.
 
-![Inline Comment](images/antigravity/artifact_inline_comment.gif)
+![Inline Comment](/images/antigravity/artifact_inline_comment.gif)
 > Inline Comment example
 
 ## Tasks
 
 This is your standard checklist of what items were done. This also allows inline comments.
-![Tasks](images/antigravity/task_list.png)
+![Tasks](/images/antigravity/task_list.png)
 > Task List example
 
 ## Implementation Plan
 
 The implementation plan details each change, how they were handled and what steps would be necessary to get the project running. It is more detailed than the walkthrough and shows things like configuration files, environment files, etc.
-![Implementation Plan](images/antigravity/implementation_plan.png)
+![Implementation Plan](/images/antigravity/implementation_plan.png)
 > Implementation Plan example
 
 ## Output
 
 The code generated worked at first shot. I was able to render the login screen immediately. The files that are generated are as expected. The `npm install` command was already run for me. There was already a sqlite db called `local.db` which means the `drizzle migrate` command was also already run.
 
-![File Structure](images/antigravity/file_structure.png)
+![File Structure](/images/antigravity/file_structure.png)
 > File Structure example
 
-![Login Screen](images/antigravity/login_screen.png)
+![Login Screen](/images/antigravity/login_screen.png)
 > Login Screen
 
 Even though the APIs seemed to have implemented, I wasn't able to login because the otp endpoint `/api/auth/sign-in/email-otp` was throwing a 404. 
 
 I asked the agent, this time in the `Fast` mode, to fix this error, and I was able to view a diff to see the changes.
 
-![Code Diff](images/antigravity/code_diff.png)
+![Code Diff](/images/antigravity/code_diff.png)
 > Code Diff example
 
 Subsequent requests do not seem as fast as the first one, even though I used the `Fast` mode, which is supposed to think less and execute more. I also tried the inline chat with the code when a file is open.
 
-![Inline Code Chat](images/antigravity/inline_code_chat.png)
+![Inline Code Chat](/images/antigravity/inline_code_chat.png)
 > Inline Code Chat example
 
 After playing around with the interface a bit, I started getting an error.
