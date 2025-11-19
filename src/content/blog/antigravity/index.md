@@ -149,7 +149,7 @@ The code generated worked at first shot. I was able to render the login screen i
 ![File Structure](/images/antigravity/file_structure.png)
 > File Structure example
 
-![Login Screen](/images/antigravity/login_screen.png)
+![Login Screen](/images/antigravity/login_page.png)
 > Login Screen
 
 Even though the APIs seemed to have implemented, I wasn't able to login because the otp endpoint `/api/auth/sign-in/email-otp` was throwing a 404. 
@@ -160,6 +160,8 @@ I asked the agent, this time in the `Fast` mode, to fix this error, and I was ab
 > Code Diff example
 
 Subsequent requests do not seem as fast as the first one, even though I used the `Fast` mode, which is supposed to think less and execute more. I also tried the inline chat with the code when a file is open.
+
+One thing I noticed there was that the model options in inline chat did not include the Claude or GPT options.
 
 ![Inline Code Chat](/images/antigravity/inline_code_chat.png)
 > Inline Code Chat example
@@ -176,4 +178,4 @@ I did achieve my goal though. The entire flow worked as expected. I switched bet
 
 Antigravity is an ambitious project that shows a lot of promise. The AI-powered features have the potential to significantly boost productivity. However, it's still early days, and it remains to be seen how Antigravity will evolve and compete with other established IDEs. The verdict is still out, but Antigravity is definitely an IDE to watch.
 
-I still have to test the unique features like the chrome browser integration through the extension, the agent manager feature that allows to create workspaces with agents and apparently cloud based agents as well.
+I still have to test the unique features like the chrome browser integration through the extension, the agent manager feature that allows to create workspaces or use a playground.
