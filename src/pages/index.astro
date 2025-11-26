@@ -101,6 +101,43 @@ const projects = (await getCollection("projects"))
     </div>
   </section>
 
+  <!-- Subscribe Section -->
+  <section class="animate">
+    <div class="space-y-4">
+      <div class="font-semibold text-black dark:text-white text-lg">
+        Stay updated
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div class="md:col-span-2">
+          <p class="text-sm text-black/75 dark:text-white/75">
+            Subscribe to my newsletter for the latest insights and updates.
+          </p>
+          <form action="/subscribe" method="post" class="mt-4 flex gap-2">
+            <input type="email" name="email" placeholder="Enter your email" class="w-full px-3 py-2 text-sm border border-black/25 dark:border-white/25 rounded bg-transparent text-black dark:text-white focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white">
+            <button type="submit" class="py-2 px-4 rounded text-sm bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend">
+              Subscribe
+            </button>
+          </form>
+        </div>
+        <div class="flex flex-col items-start md:items-end">
+            <p class="text-sm text-black/75 dark:text-white/75 mb-2">
+                Follow me on
+            </p>
+            <div class="flex gap-4">
+              {SOCIALS.map(social => (
+                <a href="{social.HREF}" target="_blank" class="text-black dark:text-white hover:opacity-75">
+                    <svg class="size-full fill-current group-hover:fill-black group-hover:dark:fill-white blend">
+                      <use href={`/social.svg#${social.ICON}`} />
+                    </svg>
+                </a>
+                ))}
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <div class="relative bg-white dark:bg-black">
     <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
 
@@ -142,34 +179,6 @@ const projects = (await getCollection("projects"))
         </div>
       </section>
 
-      <!-- Tech Stack Section -->
-       <!--
-      <section class="animate">
-        <div class="space-y-4">
-          <p class="font-semibold text-black dark:text-white">
-            Website build with
-          </p>
-          <div class="flex flex-wrap items-center gap-2 mt-5">
-            {stack.map(item => (
-              <StackCard 
-                text={item.text}
-                icon={item.icon}
-                href={item.href}
-              />
-            ))}
-          </div>
-          <div>
-            Performing reactivity and statefulness, special guest
-            <a href="https://www.solidjs.com/" target="_blank" class="w-fit group underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-              <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                SolidJS
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
-       -->
-
       <!-- Project Preview Section -->
       <section class="animate">
         <div class="space-y-4">
@@ -192,33 +201,7 @@ const projects = (await getCollection("projects"))
           </ul>
         </div>
       </section>
-
-      <!-- Contact Section -->
-      <section class="animate">
-        <div>
-          <p class="font-semibold text-black dark:text-white">
-            Let's Connect
-          </p>
-          <p>
-            Reach out to me via email or on social media.
-          </p>
-          <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
-            {SOCIALS.map(social => (
-              <div class="col-span-1 flex items-center gap-1">
-                <span class="whitespace-nowrap truncate">
-                  {social.NAME}
-                </span>
-              </div>
-              <div class="col-span-3 truncate">
-                <a href={social.HREF} target="_blank" class="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend">
-                  <span class="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
-                    {social.TEXT}
-                  </span>
-                </a>
-              </div>
-            ))}
-        </div>
-      </section>
+      
     </div>
   </div>
 </PageLayout>
