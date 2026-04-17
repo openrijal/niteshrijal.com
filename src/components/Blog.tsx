@@ -87,11 +87,11 @@ export default function Blog({ data, tags }: Props) {
       <div class="col-span-3 sm:col-span-1">
         <div class="sticky top-24">
           <div class="flex items-center justify-between mb-4">
-            <div class="text-sm font-semibold uppercase text-black dark:text-white">Filter</div>
+            <div class="text-sm font-medium uppercase text-foreground">Filter</div>
             {(tagFilter().size > 0 || selectedYear() || selectedMonth()) && (
               <button 
                 onClick={clearAllFilters}
-                class="text-xs text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+                class="text-xs text-foreground/60 hover:text-foreground blend"
               >
                 Clear All
               </button>
@@ -100,14 +100,14 @@ export default function Blog({ data, tags }: Props) {
           
           {/* Date Filters */}
           <div class="mb-6">
-            <div class="text-xs font-semibold uppercase mb-2 text-black/75 dark:text-white/75">By Date</div>
+            <div class="text-xs font-medium uppercase mb-2 text-foreground/60">By Date</div>
             
             {/* Year Filter */}
             <div class="mb-3">
               <select 
                 value={selectedYear()}
                 onChange={(e) => setSelectedYear(e.currentTarget.value)}
-                class="w-full px-2 py-1.5 text-sm rounded border border-black/15 dark:border-white/20 bg-white dark:bg-black/50 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20"
+                class="w-full px-2 py-1.5 text-sm rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
               >
                 <option value="">All Years</option>
                 <For each={dateOptions().years}>
@@ -121,7 +121,7 @@ export default function Blog({ data, tags }: Props) {
               <select 
                 value={selectedMonth()}
                 onChange={(e) => setSelectedMonth(e.currentTarget.value)}
-                class="w-full px-2 py-1.5 text-sm rounded border border-black/15 dark:border-white/20 bg-white dark:bg-black/50 text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black/20 dark:focus:ring-white/20"
+                class="w-full px-2 py-1.5 text-sm rounded-md border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/20"
               >
                 <option value="">All Months</option>
                 <For each={dateOptions().months}>
@@ -133,17 +133,17 @@ export default function Blog({ data, tags }: Props) {
 
           {/* Tag Filters */}
           <div>
-            <div class="text-xs font-semibold uppercase mb-2 text-black/75 dark:text-white/75">By Tags</div>
+            <div class="text-xs font-medium uppercase mb-2 text-foreground/60">By Tags</div>
             <ul class="flex flex-wrap sm:flex-col gap-1.5">
               <For each={tags}>
                 {(tag) => (
                   <li>
-                    <button onClick={() => toggleTag(tag)} class={cn("w-full px-2 py-1 rounded", "whitespace-nowrap overflow-hidden overflow-ellipsis", "flex gap-2 items-center", "bg-black/5 dark:bg-white/10", "hover:bg-black/10 hover:dark:bg-white/15", "transition-colors duration-300 ease-in-out", tagFilter().has(tag) && "text-black dark:text-white")}>
-                      <svg class={cn("size-5 fill-black/50 dark:fill-white/50", "transition-colors duration-300 ease-in-out", tagFilter().has(tag) && "fill-black dark:fill-white")}>
+                    <button onClick={() => toggleTag(tag)} class={cn("w-full px-2 py-1 rounded-md", "whitespace-nowrap overflow-hidden overflow-ellipsis", "flex gap-2 items-center", "bg-foreground/5 hover:bg-foreground/10", "border border-border", "blend", tagFilter().has(tag) && "text-foreground bg-foreground/10")}>
+                      <svg class={cn("size-4 fill-current text-foreground/40", tagFilter().has(tag) && "text-foreground")}>
                         <use href={`/ui.svg#square`} class={cn(!tagFilter().has(tag) ? "block" : "hidden")} />
                         <use href={`/ui.svg#square-check`} class={cn(tagFilter().has(tag) ? "block" : "hidden")} />
                       </svg>
-                      {tag}
+                      <span class={cn("text-sm", tagFilter().has(tag) ? "text-foreground" : "text-foreground/60")}>{tag}</span>
                     </button>
                   </li>
                 )}
@@ -154,7 +154,7 @@ export default function Blog({ data, tags }: Props) {
       </div>
       <div class="col-span-3 sm:col-span-2">
         <div class="flex flex-col">
-          <div class="text-sm uppercase mb-2">
+          <div class="text-sm uppercase mb-4 text-foreground/60">
             SHOWING {posts().length} OF {data.length} POSTS
           </div>
           <ul class="flex flex-col gap-3">

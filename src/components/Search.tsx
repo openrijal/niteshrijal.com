@@ -34,14 +34,14 @@ export default function Search({data}: Props) {
   return (
     <div class="flex flex-col">
       <div class="relative">
-        <input name="search" type="text" value={query()} onInput={onInput} autocomplete="off" spellcheck={false} placeholder="What are you looking for?" class="w-full px-2.5 py-1.5 pl-10 rounded outline-none text-black dark:text-white bg-black/5 dark:bg-white/15 border border-black/10 dark:border-white/20 focus:border-black focus:dark:border-white"/>
-        <svg class="absolute size-6 left-1.5 top-1/2 -translate-y-1/2 stroke-current">
+        <input name="search" type="text" value={query()} onInput={onInput} autocomplete="off" spellcheck={false} placeholder="What are you looking for?" class="w-full px-3 py-2 pl-10 rounded-md outline-none text-foreground bg-foreground/5 border border-border focus:border-foreground focus:ring-2 focus:ring-foreground/20"/>
+        <svg class="absolute size-5 left-2.5 top-1/2 -translate-y-1/2 stroke-current text-foreground/40">
           <use href={`/ui.svg#search`}/>
         </svg>
       </div>
       {(query().length >= 2 && results().length >= 1) && (
         <div class="mt-12">
-          <div class="text-sm uppercase mb-2">
+          <div class="text-sm uppercase mb-4 text-foreground/60">
             Found {results().length} results for {`'${query()}'`}
           </div>
           <ul class="flex flex-col gap-3">

@@ -3,148 +3,94 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: "Atkinson";
-    src: url("/fonts/atkinson-regular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --border: 0 0% 89.8%;
   }
-  
-  @font-face {
-    font-family: "Atkinson";
-    src: url("/fonts/atkinson-bold.woff") format("woff");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
   }
-}
 
-html {
-  overflow-y: scroll;
-  color-scheme: light;
-  background-color: white;
-  font-family: "Atkinson", sans-serif;
-  
-}
-
-html.dark {
-  color-scheme: dark;
-  background-color: black;
-}
-
-html,
-body {
-  @apply h-full w-full antialiased;
-  @apply bg-white dark:bg-black;
-  @apply text-black/75 dark:text-white/75;
-}
-
-body {
-  @apply relative flex flex-col;
-}
-
-main {
-  @apply flex flex-col flex-1 bg-white dark:bg-black;
-}
-
-header {
-  @apply border-b;
-  @apply transition-all duration-300 ease-in-out;
-}
-
-header:not(.scrolled) {
-  @apply bg-transparent border-transparent;
-}
-
-header.scrolled {
-  @apply bg-white/75 dark:bg-black/50;
-  @apply border-black/10 dark:border-white/25;
-  @apply backdrop-blur-sm saturate-200;
-}
-
-article {
-  @apply prose dark:prose-invert max-w-full pb-12;
-}
-
-.page-heading {
-  @apply font-semibold text-black dark:text-white;
-}
-
-.blend {
-  @apply transition-all duration-300 ease-in-out;
-}
-
-/** Light theme particles on home page */
-@keyframes animateParticle {
-  from {
-    transform: translateY(0px);
+  * {
+    @apply border-border;
   }
-  to {
-    transform: translateY(-2000px);
+
+  html {
+    overflow-y: scroll;
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    @apply h-full w-full antialiased;
+    @apply bg-background text-foreground;
+  }
+
+  body {
+    @apply relative flex flex-col;
+  }
+
+  main {
+    @apply flex flex-col flex-1 bg-background;
+  }
+
+  header {
+    @apply border-b border-border;
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  header:not(.scrolled) {
+    @apply bg-transparent border-transparent;
+  }
+
+  header.scrolled {
+    @apply bg-background/80 backdrop-blur-sm;
+    @apply border-border;
+  }
+
+  article {
+    @apply prose prose-neutral dark:prose-invert max-w-none pb-12;
+    @apply prose-headings:font-semibold prose-headings:text-foreground;
+    @apply prose-p:text-foreground/80 prose-p:leading-relaxed;
+    @apply prose-a:text-foreground prose-a:no-underline;
+    @apply prose-strong:text-foreground prose-strong:font-semibold;
+    @apply prose-code:text-foreground prose-code:bg-background;
+    @apply prose-pre:bg-background prose-pre:border prose-pre:border-border;
+    @apply prose-blockquote:border-l-border prose-blockquote:text-foreground/70;
+    @apply prose-ul:text-foreground/80 prose-ol:text-foreground/80;
+    @apply prose-li:text-foreground/80;
+  }
+
+  .page-heading {
+    @apply font-semibold text-foreground;
   }
 }
 
-/** styles for public /animation.js */
-.animate {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s ease, transform 1s ease;
-}
+@layer utilities {
+  .blend {
+    @apply transition-colors duration-200 ease-in-out;
+  }
 
-.animate.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+  .animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
 
-article img {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: block;
-  margin: 0 auto;
-}
+  .animate.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-/**
- * TWINKLE STARS
- */
-
- #twinkle-star.template {
-  @apply absolute -left-full; /* hide offscreen */
-}
-
-#twinkle-star.twinkle {
-  @apply animate-twinkle; /* defined in tailwind.config */
-}
-
-
-/**
- * Meteors
- */
-
-#meteors .shower {
-  @apply absolute inset-0 top-0;;
-  @apply left-1/2 -translate-x-1/2;
-  @apply w-screen aspect-square;
-}
-
-#meteors .meteor {
-  @apply animate-meteor; /* defined in tailwind.config */
-  @apply absolute top-1/2 left-1/2 w-px h-[75vh];
-  @apply bg-gradient-to-b from-white to-transparent;
-}
-
-#meteors .shower.ur {
-  @apply rotate-45;
-}
-
-#meteors .shower.dr {
-  @apply rotate-135;
-}
-
-#meteors .shower.dl {
-  @apply rotate-225;
-}
-
-#meteors .shower.ul {
-  @apply rotate-315;
+  article img {
+    @apply my-8 mx-auto rounded-lg;
+  }
 }
