@@ -67,28 +67,30 @@ const projects = (await getCollection("projects"))
 
   <script is:inline src="/js/bg.js"></script>
   
-  <!-- HERO -->
-  <section class="relative h-screen w-full">
-    <div id="planetcont" class='animate absolute inset-0 top-1/4 overflow-hidden'>
+  <!-- HERO: two-column — intro left, bio right -->
+  <section class="relative h-[75vh] min-h-[500px] w-full overflow-hidden">
+    <div id="planetcont" class='animate absolute inset-0 top-[15%] overflow-hidden'>
       <div id="crescent" class='absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%'>
         <div id="planet" class='w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center'>
           <div id="blur" class='w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl'/>
         </div>
       </div>
     </div>
-    <div class="animate absolute h-full w-full flex items-center justify-center">
-      <div class='relative w-full h-full flex items-center justify-center'>
-        <div class='p-5 text-center'>
+    <div class="animate absolute h-full w-full flex items-center justify-center px-6">
+      <div class="relative w-full max-w-screen-lg grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+
+        <!-- Left: name + tagline + CTAs -->
+        <div class="flex flex-col items-center md:items-start text-center md:text-left">
           <p class='animated text-lg md:text-xl lg:text-2xl font-semibold opacity-75'>
             🙏 Namaste, I am ...
           </p>
-          <p class='animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white'>
+          <p class='animated text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white mt-1'>
             Nitesh Rijal
           </p>
-          <p class='animated text-sm md:text-base lg:text-lg opacity-75'>
+          <p class='animated text-sm md:text-base lg:text-lg opacity-75 mt-2'>
             changing the world one line of code at a time
           </p>
-          <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center mt-5'>
+          <div id="ctaButtons" class='animated flex flex-wrap gap-4 justify-center md:justify-start mt-5'>
             <a href='/blog' class='py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend'>
               Read my blog
             </a>
@@ -97,6 +99,20 @@ const projects = (await getCollection("projects"))
             </a>
           </div>
         </div>
+
+        <!-- Right: bio paragraphs -->
+        <div class="animated text-sm md:text-base opacity-75 space-y-4 text-black dark:text-white">
+          <p>I am a Software Engineer with a strong passion for open-source technologies and full-stack development.
+            Throughout my career, I have actively contributed to the open-source communities, demonstrating my expertise in both front-end and back-end development.
+            My commitment to writing clean, scalable code and my continuous pursuit of learning make me a valuable asset to any team.
+          </p>
+          <p>
+            I have had the privilege of mentoring engineers at various stages in their careers,
+            aiming to create a positive impact on their lives. Guiding and empowering others to grow and succeed has been a rewarding experience,
+            and I take great pride in fostering a supportive and collaborative environment for professional development.
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -104,20 +120,6 @@ const projects = (await getCollection("projects"))
   <div class="relative bg-white dark:bg-black">
     <div class="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
 
-      <!-- About Section -->
-      <section class="animate">
-        <article>
-          <p>I am a Software Engineer with a strong passion for open-source technologies and full-stack development. 
-            Throughout my career, I have actively contributed to the open-source communities, demonstrating my expertise in both front-end and back-end development. 
-            My commitment to writing clean, scalable code and my continuous pursuit of learning make me a valuable asset to any team.
-          </p>
-          <p>
-            I have had the privilege of mentoring engineers at various stages in their careers, 
-            aiming to create a positive impact on their lives. Guiding and empowering others to grow and succeed has been a rewarding experience, 
-            and I take great pride in fostering a supportive and collaborative environment for professional development.
-          </p>
-        </article>
-      </section>
 
       <!-- Blog Preview Section -->
       <section class="animate">
