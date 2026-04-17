@@ -7,70 +7,51 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "sans": [
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          '"Segoe UI"',
-          "Roboto",
-          '"Helvetica Neue"',
-          "Arial",
-          '"Noto Sans"',
-          "sans-serif",
-          ...defaultTheme.fontFamily.sans,
-        ],
-      },
-      colors: {
-        border: "hsl(var(--border))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        "sans": ["Atkinson", ...defaultTheme.fontFamily.sans],
       },
       typography: {
         DEFAULT: {
           css: {
-            maxWidth: "65ch",
-            color: "inherit",
-            a: {
-              color: "inherit",
-              textDecoration: "underline",
-              textDecorationColor: "currentColor",
-              textDecorationThickness: "0.5px",
-              textUnderlineOffset: "2px",
-              "&:hover": {
-                textDecorationThickness: "1px",
-              },
-            },
-            code: {
-              color: "inherit",
-              backgroundColor: "hsl(var(--background))",
-              padding: "0.125rem 0.25rem",
-              borderRadius: "0.25rem",
-              fontWeight: "400",
-            },
-            "code::before": {
-              content: '""',
-            },
-            "code::after": {
-              content: '""',
-            },
-            pre: {
-              backgroundColor: "hsl(var(--background))",
-              border: "1px solid hsl(var(--border))",
-            },
-            blockquote: {
-              borderLeftColor: "hsl(var(--border))",
-            },
+            maxWidth: "full",
           },
         },
-        invert: {
-          css: {
-            a: {
-              color: "inherit",
-            },
-            code: {
-              color: "inherit",
-            },
+      },
+      rotate: {
+        "45": "45deg",
+        "135": "135deg",
+        "225": "225deg",
+        "315": "315deg",
+      },
+      animation: {
+        twinkle: "twinkle 2s ease-in-out forwards",
+        meteor: "meteor 3s ease-in-out forwards",
+      },
+      keyframes: {
+        twinkle: {
+          "0%": { 
+            opacity: 0, 
+            transform: "rotate(0deg)" 
+          },
+          "50%": { 
+            opacity: 1,
+            transform: "rotate(180deg)" 
+          },
+          "100%": { 
+            opacity: 0, 
+            transform: "rotate(360deg)" 
+          },
+        },
+        meteor: {
+          "0%": { 
+            opacity: 0, 
+            transform: "translateY(200%)" 
+          },
+          "50%": { 
+            opacity: 1  
+          },
+          "100%": { 
+            opacity: 0, 
+            transform: "translateY(0)" 
           },
         },
       },
