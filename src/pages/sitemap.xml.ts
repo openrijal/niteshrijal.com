@@ -1,5 +1,6 @@
 import type { APIContext } from "astro"
 import { getCollection } from "astro:content"
+import { entrySlug } from "@lib/collections"
 
 export async function GET({ site }: APIContext) {
   const base = site ? site.href.replace(/\/$/, "") : "https://niteshrijal.com"
@@ -9,8 +10,8 @@ export async function GET({ site }: APIContext) {
 
   const staticRoutes = ["", "blog", "projects", "work", "search"]
 
-  const blogRoutes = blog.map((p) => `blog/${p.slug}`)
-  const projectRoutes = projects.map((p) => `projects/${p.slug}`)
+  const blogRoutes = blog.map((p) => `blog/${entrySlug(p)}`)
+  const projectRoutes = projects.map((p) => `projects/${entrySlug(p)}`)
 
   const allRoutes = [...staticRoutes, ...blogRoutes, ...projectRoutes]
 
