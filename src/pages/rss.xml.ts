@@ -1,6 +1,7 @@
 import rss from "@astrojs/rss"
 import { getCollection } from "astro:content"
 import { SITE } from "@consts"
+import { entrySlug } from "@lib/collections"
 
 type Context = {
   site: string
@@ -18,13 +19,14 @@ export async function GET(context: Context) {
     title: SITE.TITLE,
     description: SITE.DESCRIPTION,
     site: context.site,
-    items: items.map((item) => ({
-      title: item.data.title,
-      description: item.data.summary,
-      pubDate: item.data.date,
-      link: item.slug.startsWith("blog")
-        ? `/blog/${item.slug}/`
-        : `/projects/${item.slug}/`,
-    })),
+    items: items.map((item) => {
+      const slug = entrySlug(item)
+      return {
+        title: item.data.title,
+        description: item.data.summary,
+        pubDate: item.data.date,
+        link: `/${item.collection}/${slug}/`,
+      }
+    }),
   })
 }
