@@ -7,5 +7,5 @@ type Entry =
   | CollectionEntry<"work">
 
 export function entrySlug(entry: Entry): string {
-  return entry.slug
+  return entry.id
 }

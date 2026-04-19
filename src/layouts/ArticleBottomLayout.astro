@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content"
+import { type CollectionEntry, getCollection, render } from "astro:content"
 import { entrySlug } from "@lib/collections"
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 // Get the requested entry
 const { entry } = Astro.props
 const { collection } = entry
-const { Content } = await entry.render()
+const { Content } = await render(entry)
 
 // Get the next and prev entries (modulo to wrap index)
 const items = (await getCollection(collection))
