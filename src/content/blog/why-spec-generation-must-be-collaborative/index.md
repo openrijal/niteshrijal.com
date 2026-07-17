@@ -6,27 +6,27 @@ tags: ["software-development", "methodology", "sdd", "spec-driven", "collaborati
 draft: true
 ---
 
-Software teams ship faster than ever, but speed without structure leads to rework, scope creep, and implementations that drift from what was actually needed.
+Today's software teams develop code and ship software faster than ever. However, absent a clear plan and structure, broken code gets reused, scope creeps, and software products become more distant from what was originally intended.
 
-In my previous posts, I explored how [Specification-Driven Development (SDD)](https://niteshrijal.com/blog/spec-driven-development-with-speckit/) solves this by putting a detailed blueprint at the center of the development process before a single line of code is written. We looked at how tools like SpecKit can accelerate this workflow by generating technical plans and tasks for human and AI developers.
+In earlier posts, I covered how [Specification-Driven Development (SDD)](https://niteshrijal.com/blog/spec-driven-development-with-speckit/) approaches that objective by establishing a comprehensive definition of architecture up-front and making this blueprint an integral part of the development process, even before writing the first line of code. Also, how tools such as SpecKit can help expedite this process further, by automatically generating the technical plans and tasks for both human and AI developers alike.
 
 But as I push to fully embrace SDD and agentic AI capabilities, a new bottleneck has emerged. Local CLI-based workflows isolate non-engineering stakeholders and prevent effective collaboration during the specification phase, which is exactly the phase where their input matters most. Our shared understanding ends up trapped in silos.
 
-This post makes the case for moving SDD out of the local terminal and into a centralized, collaborative hub, and why a Git-backed, integrated approach is the only way to build lasting context.
+In this article, we will make the case for why we should remove SDD from a local terminal and bring it in a collaborative, centralized system, and why this can solely be achieved with a Git-backed, integrated approach that ensures continuous context.
 
 ## The Current Mess: Fragmented Context and Architectural Drift
 
-Getting an idea into production usually means losing context at every handoff. Manual translation from PRDs to Jira tickets inevitably leads to architectural drift and lost requirements.
+Context is lost at every transfer when idea goes to production. Manual process of converting PRDs into Jira tickets creates architectural drift and missed requirements.
 
-A huge driver behind this friction is fragmented documentation. Product and design teams lack a collaborative interface to review and refine technical specs before development begins. When you combine format fragmentation (Google Docs, PDFs, scattered Markdown files) with isolated local AI tools, establishing a single source of truth becomes nearly impossible.
+A major part of this disconnect stems from fragmented documentation. Product and design teams lack a common workspace where they can collaboratively view and polish technical specifications before development kicks into gear. With fragmented formats (Google docs, PDFs, markdown files hidden throughout folders) and AI tools residing locally in silos, creating a single source of truth is virtually unachievable.
 
 ## The Vision: A Framework-Agnostic, Git-Native Hub
 
-To treat product and engineering specs as machine-readable, "compilable" sources of truth, we need a centralized web application. Bringing spec work into a shared UI builds persistent context over time instead of scattering it across laptops and chat threads.
+To treat product and engineering specs as machine-readable, "compilable" sources of truth, we need a centralized web application. By bringing spec work into a shared UI, we build persistent context over time rather than having it scattered across laptops and chat threads.
 
-The platform I am proposing is entirely framework-agnostic. Whether your team uses open source tools like SpecKit, OpenSpec, or BMAD, internal tools like Wave, LID, or UncleDev, or even custom workflows like Grill-Me, the web platform simply acts as the centralized environment to plug them into.
+My recommendation for a platform is completely framework agnostic. If our team is relying on an open source tool like SpecKit, OpenSpec, or BMAD or even a custom workflow like Grill-Me, this web platform will act as a hub for us to consolidate these tools.
 
-While collaboration happens in a friendly web portal, the ultimate source of truth resides directly in the code repository:
+The code repository is the single source of truth:
 
 * All specifications exist as version-controlled files.
 * Feedback and discussions are captured as Git-native comments.
@@ -34,11 +34,11 @@ While collaboration happens in a friendly web portal, the ultimate source of tru
 
 ## The 5-Phase Locked Workflow
 
-Change is inevitable, but shifting requirements should not cause spec drift. The platform enforces a sequential approval process where all changes must happen at the specification level before proceeding.
+Shift is unavoidable, but even shift in requirement must not bring spec drift. A sequential approval process defined by the platform will ensure the change works at the spec level first and only then at the next level.
 
 ### Phase 1: PRD Refinement
 
-Stakeholders collaborate on the initial PRD, clarifying edge cases via inline comments and built-in, well-known workflows like `/speckit.clarify` or `/grill-me`.
+Stakeholders align on the first draft PRD with edge cases explained via inline comments and such built-in well-known workflows as `/speckit.clarify` and `/grill-me`.
 
 ### Phase 2: PRD Lock and Approval
 
@@ -46,7 +46,7 @@ The PRD is iteratively regenerated until consensus is reached. It is then finali
 
 ### Phase 3: ERD Mapping and Review
 
-The system generates an Engineering Requirements Document (ERD) mapped directly to the approved PRD. Using context from existing code and documentation, engineering reviews the ERD to ensure the architecture satisfies the PRD constraints. Technical adjustments are finalized here.
+Subsequently, the tool produces the Engineering Requirements Document (ERD) which is further aligned with the approved PRD. Based on the context of existing code and documents, the engineer validates the ERD to ascertain whether the architecture is in line with constraints in the PRD. Any technical changes are decided.
 
 ### Phase 4: ERD Lock and Approval
 
