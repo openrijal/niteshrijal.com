@@ -3,7 +3,7 @@ title: "Why Spec Generation Must Be a Collaborative Process"
 summary: "SDD works, but locking it inside a local CLI keeps product, design, and other stakeholders out of the most important phase. A Git-backed, framework-agnostic web platform can fix that."
 date: "Jul 16 2026"
 tags: ["software-development", "methodology", "sdd", "spec-driven", "collaboration", "ai", "agents", "product-management", "llm"]
-draft: true
+draft: false
 ---
 
 Today's software teams develop code and ship software faster than ever. However, without a clear plan and structure, broken code gets reused, scope creeps, and software products become more distant from what was originally intended.
