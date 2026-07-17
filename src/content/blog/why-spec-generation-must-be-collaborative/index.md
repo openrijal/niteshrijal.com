@@ -6,13 +6,13 @@ tags: ["software-development", "methodology", "sdd", "spec-driven", "collaborati
 draft: true
 ---
 
-Today's software teams develop code and ship software faster than ever. However, absent a clear plan and structure, broken code gets reused, scope creeps, and software products become more distant from what was originally intended.
+Today's software teams develop code and ship software faster than ever. However, without a clear plan and structure, broken code gets reused, scope creeps, and software products become more distant from what was originally intended.
 
 In earlier posts, I covered how [Specification-Driven Development (SDD)](https://niteshrijal.com/blog/spec-driven-development-with-speckit/) approaches that objective by establishing a comprehensive definition of architecture up-front and making this blueprint an integral part of the development process, even before writing the first line of code. Also, how tools such as SpecKit can help expedite this process further, by automatically generating the technical plans and tasks for both human and AI developers alike.
 
-But as I push to fully embrace SDD and agentic AI capabilities, a new bottleneck has emerged. Local CLI-based workflows isolate non-engineering stakeholders and prevent effective collaboration during the specification phase, which is exactly the phase where their input matters most. Our shared understanding ends up trapped in silos.
+But as I attempt to fully embrace SDD and agentic AI capabilities, a new bottleneck has emerged. Local CLI-based workflows isolate non-engineering stakeholders and prevent effective collaboration during the specification phase, which is exactly the phase where their input matters most. Our shared understanding ends up trapped in silos.
 
-In this article, we will make the case for why we should remove SDD from a local terminal and bring it in a collaborative, centralized system, and why this can solely be achieved with a Git-backed, integrated approach that ensures continuous context.
+In this article, we will make the case for why we should move SDD from a local terminal and bring it in a collaborative, centralized system, and why this can solely be achieved with a Git-backed, integrated approach that ensures continuous context.
 
 ## The Current Mess: Fragmented Context and Architectural Drift
 
@@ -22,9 +22,9 @@ A major part of this disconnect stems from fragmented documentation. Product and
 
 ## The Vision: A Framework-Agnostic, Git-Native Hub
 
-To treat product and engineering specs as machine-readable, "compilable" sources of truth, we need a centralized web application. By bringing spec work into a shared UI, we build persistent context over time rather than having it scattered across laptops and chat threads.
+To treat product and engineering specs as machine-readable, "compilable" sources of truth, we need a centralized application. By bringing spec work into a shared UI, we build persistent context over time rather than having it scattered across laptops and chat threads.
 
-My recommendation for a platform is completely framework agnostic. If our team is relying on an open source tool like SpecKit, OpenSpec, or BMAD or even a custom workflow like Grill-Me, this web platform will act as a hub for us to consolidate these tools.
+My recommendation for a platform is completely framework agnostic. If our team is relying on an open source tool like SpecKit, OpenSpec, or BMAD or even a custom workflow like [Grill-with-docs](https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs), this web platform will act as a hub for us to consolidate these tools.
 
 The code repository is the single source of truth:
 
@@ -38,7 +38,7 @@ Shift is unavoidable, but even shift in requirement must not bring spec drift. A
 
 ### Phase 1: PRD Refinement
 
-Stakeholders align on the first draft PRD with edge cases explained via inline comments and such built-in well-known workflows as `/speckit.clarify` and `/grill-me`.
+Stakeholders align on the first draft PRD with edge cases explained via inline comments and such built-in well-known workflows as `/speckit.clarify` and `/grill-with-docs`.
 
 ### Phase 2: PRD Lock and Approval
 
