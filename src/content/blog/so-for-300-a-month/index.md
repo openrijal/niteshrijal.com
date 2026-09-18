@@ -85,4 +85,4 @@ I want:
 
 Google gets you close on paper. OpenAI gets you close if you are willing to wire Hermes or OpenClaw yourself. Anthropic wins the coding comparison and loses the "what else do I get" comparison. Perplexity wins research plus computer use, and doesn't pretend to be the editor.
 
-Anyway. If you're paying for Grok and a Bot, Heavy is the plan. Ultra is extra. Ping me on X [@opynrijal](https://x.com/opynrijal).
+How much are you spending on a monthly plan or plans? What are y'all using? Ping me on X [@opynrijal](https://x.com/opynrijal).
