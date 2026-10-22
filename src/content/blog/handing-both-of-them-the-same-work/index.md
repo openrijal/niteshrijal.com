@@ -24,4 +24,4 @@ Code is the same kind of handoff. Cursor has the repo. Grok Bot keeps the reques
 
 None of this is futuristic. It's delegation with a good memory and no ego. The trick is standing instructions.
 
-That's basically it. If you're running one assistant, or a few, tell me where it breaks. Ping me on X [@opynrijal](https://x.com/opynrijal).
+That's basically it. If you're running one assistant, or a few, tell me where it breaks. Ping me on X [@openrijal](https://x.com/openrijal).

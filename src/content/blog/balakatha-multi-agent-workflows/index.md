@@ -55,4 +55,4 @@ The product is the workflow.
 
 If you're wiring multi-agent systems for something that has to ship every day, ask what still refuses to automate. For Balakatha, that's review, compliance, and anything that would let a model write straight into a side effect.
 
-Try the stories at [balakatha.app](https://balakatha.app). If you're building a similar factory, tell me what breaks when you put agents on the line. Ping me on X [@opynrijal](https://x.com/opynrijal).
+Try the stories at [balakatha.app](https://balakatha.app). If you're building a similar factory, tell me what breaks when you put agents on the line. Ping me on X [@openrijal](https://x.com/openrijal).

@@ -65,4 +65,4 @@ GrokBot stays my main assistant. It already does the website work and has specia
 
 Dot is too new for a verdict. I’m giving it something concrete to do before deciding where it belongs.
 
-If you’re running one of these assistants, or your own [OpenClaw](https://openclaw.ai/) or [Hermes](https://hermes-agent.nousresearch.com/), tell me where it breaks. Ping me on X [@opynrijal](https://x.com/opynrijal).
+If you’re running one of these assistants, or your own [OpenClaw](https://openclaw.ai/) or [Hermes](https://hermes-agent.nousresearch.com/), tell me where it breaks. Ping me on X [@openrijal](https://x.com/openrijal).

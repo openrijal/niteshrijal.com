@@ -140,7 +140,7 @@ A couple of tools I deliberately left out:
 - **Windsurf** — I investigated (I mean I asked Claude Code) the local artifacts on macOS and couldn't find reliable token counts. I'm not going to surface inaccurate data.
 - **VS Code (generic)** — Extensions expose session metadata but not token counts. Same problem.
 
-If either of those changes in a future version of the respective tools, I'll revisit. But, also if you know better, please let me know. Ping me on Twitter/X @opynrijal. Also did I say this is Open Source, so please feel free to contribute.
+If either of those changes in a future version of the respective tools, I'll revisit. But, also if you know better, please let me know. Ping me on Twitter/X [@openrijal](https://x.com/openrijal). Also did I say this is Open Source, so please feel free to contribute.
 
 ## Architecture
 
