@@ -9,7 +9,7 @@ import { entrySlug } from "@lib/collections"
 
 // Create the static blog pages
 export async function getStaticPaths() {
-	const posts = await getCollection("blog")
+	const posts = await getCollection("blog", ({ data }) => !data.draft)
 	return posts.map((post) => ({
 		params: { slug: entrySlug(post) },
 		props: post,
