@@ -1,0 +1,13 @@
+# Cloudflare Pages response headers. Live responses already send
+# Referrer-Policy and X-Content-Type-Options. CSP, HSTS, and framing
+# headers were absent (checked 2026-10-23 on https://niteshrijal.com/).
+# script-src allows the same-origin pages plus the Cloudflare features the
+# live site already injects: Rocket Loader and Scrape Shield (/cdn-cgi, 'self'
+# and 'unsafe-inline'), Web Analytics, and bot-challenge scripts.
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: https://challenges.cloudflare.com; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://ajax.cloudflare.com https://static.cloudflareinsights.com https://challenges.cloudflare.com; connect-src 'self' https://cloudflareinsights.com https://static.cloudflareinsights.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; worker-src 'self' blob:; upgrade-insecure-requests

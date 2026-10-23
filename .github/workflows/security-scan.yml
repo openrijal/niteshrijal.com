@@ -157,7 +157,8 @@ jobs:
           if current:
               blocks.append(current)
           if not blocks:
-              sys.exit("vulnerability baseline is empty")
+              print("trivy_ignore_entries=0")
+              sys.exit(0)
           for block in blocks:
               body = "\n".join(block)
               if "\n    paths:\n" not in body or "\n    purls:\n" not in body:

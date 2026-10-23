@@ -7,6 +7,10 @@ dist/
 # dependencies
 node_modules/
 
+# pnpm is the package manager (see packageManager in package.json).
+# An npm lockfile here previously pinned Astro 4 and a vulnerable Vite.
+package-lock.json
+
 # logs
 npm-debug.log*
 yarn-debug.log*
