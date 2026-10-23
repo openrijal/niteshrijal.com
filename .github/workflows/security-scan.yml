@@ -1,0 +1,294 @@
+# Secret and vulnerability scanning.
+# Checksums below are the trust root for the CLI archives. Do not replace them
+# with a checksum file downloaded from the same release.
+
+name: Security scan
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: Gitleaks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install Gitleaks
+        run: |
+          set -euo pipefail
+          version="8.30.1"
+          archive="gitleaks_${version}_linux_x64.tar.gz"
+          checksum="551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+          url="https://github.com/gitleaks/gitleaks/releases/download/v${version}/${archive}"
+          cd "${RUNNER_TEMP}"
+          curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
+            --retry 3 --retry-delay 2 --output "${archive}" "${url}"
+          echo "${checksum}  ${archive}" | sha256sum -c -
+          tar -xzf "${archive}" gitleaks
+          chmod 0755 gitleaks
+          ./gitleaks version
+
+      - name: Scan
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          gitleaks="${RUNNER_TEMP}/gitleaks"
+          export GIT_TERMINAL_PROMPT=0
+
+          ensure_commit() {
+            local sha="$1"
+            if git cat-file -e "${sha}^{commit}" 2>/dev/null; then
+              return 0
+            fi
+            git fetch --no-tags origin "${sha}"
+            git cat-file -e "${sha}^{commit}"
+          }
+
+          case "${EVENT_NAME}" in
+            pull_request)
+              if ! [[ "${BASE_SHA}" =~ ^[0-9a-f]{40}$ ]]; then
+                echo "Base SHA is missing or not a full commit id." >&2
+                exit 1
+              fi
+              if ! [[ "${HEAD_SHA}" =~ ^[0-9a-f]{40}$ ]]; then
+                echo "Head SHA is missing or not a full commit id." >&2
+                exit 1
+              fi
+              ensure_commit "${BASE_SHA}"
+              ensure_commit "${HEAD_SHA}"
+              # Commit range only. Gitleaks passes this string through to git log.
+              "${gitleaks}" detect \
+                --source "${GITHUB_WORKSPACE}" \
+                --redact \
+                --no-banner \
+                --no-color \
+                --log-opts="${BASE_SHA}..${HEAD_SHA}" \
+                --verbose \
+                --exit-code 1
+              ;;
+            push|workflow_dispatch)
+              # Full history, including commits that are no longer on the branch tip.
+              "${gitleaks}" detect \
+                --source "${GITHUB_WORKSPACE}" \
+                --redact \
+                --no-banner \
+                --no-color \
+                --verbose \
+                --exit-code 1
+              ;;
+            *)
+              echo "Unexpected event: ${EVENT_NAME}" >&2
+              exit 1
+              ;;
+          esac
+
+  trivy:
+    name: Trivy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install Trivy
+        run: |
+          set -euo pipefail
+          version="0.76.1"
+          archive="trivy_${version}_Linux-64bit.tar.gz"
+          checksum="c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0"
+          url="https://github.com/aquasecurity/trivy/releases/download/v${version}/${archive}"
+          cd "${RUNNER_TEMP}"
+          curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
+            --retry 3 --retry-delay 2 --output "${archive}" "${url}"
+          echo "${checksum}  ${archive}" | sha256sum -c -
+          tar -xzf "${archive}" trivy
+          chmod 0755 trivy
+          ./trivy --version
+
+      - name: Require scoped vulnerability ignores
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import pathlib
+          import sys
+
+          text = pathlib.Path(".trivyignore.yaml").read_text()
+          section = None
+          blocks = []
+          current = None
+          for line in text.splitlines():
+              if line.startswith("vulnerabilities:"):
+                  section = "vulnerabilities"
+                  continue
+              if line.startswith(("misconfigurations:", "secrets:", "licenses:")):
+                  section = line.split(":", 1)[0]
+                  continue
+              if section != "vulnerabilities":
+                  continue
+              if line.startswith("  - id:"):
+                  if current:
+                      blocks.append(current)
+                  current = [line]
+              elif current is not None:
+                  current.append(line)
+          if current:
+              blocks.append(current)
+          if not blocks:
+              sys.exit("vulnerability baseline is empty")
+          for block in blocks:
+              body = "\n".join(block)
+              if "\n    paths:\n" not in body or "\n    purls:\n" not in body:
+                  sys.exit("vulnerability baseline entry is missing paths or purls: " + block[0])
+          print(f"trivy_ignore_entries={len(blocks)} each scoped by path and purl")
+          PY
+
+      - name: Scan
+        id: scan
+        run: |
+          set -euo pipefail
+          json="${RUNNER_TEMP}/trivy.json"
+          sarif="${RUNNER_TEMP}/trivy-results.sarif"
+          trivy="${RUNNER_TEMP}/trivy"
+          common=(
+            filesystem
+            --scanners vuln,secret,misconfig
+            --severity HIGH,CRITICAL
+            --ignore-unfixed
+            --ignorefile .trivyignore.yaml
+            --disable-telemetry
+            --skip-version-check
+            --no-progress
+            --timeout 15m
+            --skip-dirs .git
+            --exit-code 0
+          )
+          "${trivy}" "${common[@]}" --format json --output "${json}" "${GITHUB_WORKSPACE}"
+          "${trivy}" "${common[@]}" \
+            --skip-db-update \
+            --skip-java-db-update \
+            --skip-check-update \
+            --format sarif \
+            --output "${sarif}" \
+            "${GITHUB_WORKSPACE}"
+          TRIVY_JSON="${json}" python3 - <<'PY'
+          import json
+          import os
+          import sys
+
+          path = os.environ["TRIVY_JSON"]
+          with open(path) as handle:
+              report = json.load(handle)
+
+          vulns = []
+          secrets = []
+          misconfigs = []
+          for result in report.get("Results") or []:
+              target = result.get("Target")
+              for vuln in result.get("Vulnerabilities") or []:
+                  purl = (vuln.get("PkgIdentifier") or {}).get("PURL")
+                  vulns.append(
+                      (
+                          vuln.get("Severity"),
+                          vuln.get("VulnerabilityID"),
+                          vuln.get("PkgName"),
+                          vuln.get("InstalledVersion"),
+                          vuln.get("FixedVersion"),
+                          target,
+                          purl,
+                      )
+                  )
+              for secret in result.get("Secrets") or []:
+                  secrets.append(
+                      (
+                          secret.get("Severity"),
+                          target,
+                          secret.get("StartLine"),
+                          secret.get("RuleID"),
+                      )
+                  )
+              for item in result.get("Misconfigurations") or []:
+                  if item.get("Status") not in (None, "FAIL"):
+                      continue
+                  cause = item.get("CauseMetadata") or {}
+                  misconfigs.append(
+                      (
+                          item.get("Severity"),
+                          target,
+                          cause.get("StartLine"),
+                          item.get("AVDID") or item.get("ID"),
+                          item.get("Title"),
+                      )
+                  )
+
+          lines = [
+              f"trivy_vulns={len(vulns)} trivy_secrets={len(secrets)} trivy_misconfig={len(misconfigs)}"
+          ]
+          for row in vulns:
+              lines.append(
+                  "vuln severity={0} id={1} pkg={2} installed={3} fixed={4} target={5} purl={6}".format(*row)
+              )
+          for row in secrets:
+              lines.append("secret severity={0} target={1}:{2} rule={3}".format(*row))
+          for row in misconfigs:
+              lines.append("misconfig severity={0} target={1}:{2} id={3} title={4}".format(*row))
+
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a") as handle:
+                  handle.write("## Trivy\n\n```\n")
+                  handle.write("\n".join(lines))
+                  handle.write("\n```\n")
+          print("\n".join(lines))
+          os.remove(path)
+          if vulns or secrets or misconfigs:
+              sys.exit(1)
+          PY
+
+      - name: Note SARIF availability
+        id: sarif
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ -f "${RUNNER_TEMP}/trivy-results.sarif" ]; then
+            echo "present=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "present=false" >> "${GITHUB_OUTPUT}"
+            echo "No SARIF file was produced. The scan step output is the Trivy result."
+          fi
+
+      - name: Upload SARIF to code scanning
+        id: upload-sarif
+        if: steps.sarif.outputs.present == 'true'
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          sarif_file: ${{ runner.temp }}/trivy-results.sarif
+          category: trivy
+
+      - name: Code scanning fallback
+        if: always() && steps.upload-sarif.outcome == 'failure'
+        run: |
+          echo "Code scanning did not accept the SARIF upload. The redacted Trivy summary in the scan step is the job output."
