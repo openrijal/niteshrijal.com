@@ -59,9 +59,5 @@ Use `pnpm` for all package management.
     ```bash
     pnpm preview
     ```
--   **To lint the code**:
-    ```bash
-    pnpm lint
-    ```
 
 Your goal is to assist in developing and maintaining this website by following these conventions. When asked to create new pages or content, follow the existing patterns for content collections and component usage.
