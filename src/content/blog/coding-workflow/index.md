@@ -3,7 +3,7 @@ title: "My coding workflow is a stack of skills, and the rules between them matt
 summary: "I use Matt Pocock's skills for grilling and the PRD, LID for specs and EARS requirements, and pstack for implementation and validation. Here's how they hand off, and the four rules I added so they don't fight each other."
 date: "Oct 30 2026"
 tags: ["ai", "agents", "workflow", "sdd", "tdd"]
-draft: true
+draft: false
 ---
 
 I've been putting together my coding workflow out of skills that other people wrote: [Matt Pocock's skills](https://github.com/mattpocock/skills), [LID](https://github.com/jszmajda/lid), and [pstack](https://github.com/cursor/plugins/tree/main/pstack). Each one is good at its own job. The part I didn't expect to spend time on was the space between them, where one skill's habits quietly undo what the previous skill set up.
